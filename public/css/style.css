@@ -1,0 +1,56 @@
+#img-body{
+    margin: 3px;
+ }
+ 
+ #img-body:hover span{
+    display: inline-block;
+    width: 250px;
+ }
+ 
+ #img-body:hover img{
+     opacity: 0.3;
+ }
+ 
+ #img-body span{
+    display: none;
+    padding: 5px;
+    color:#565252;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, -50%);
+ }
+ 
+ #img-unity {
+     max-width:500px;
+     max-height:180px;
+     width: auto;
+     height: auto;
+ }
+
+html{
+    scroll-behavior: smooth;
+}
+body:before{
+    height: 100px;
+    content: "";
+    display:block;
+}
+section {
+    padding-top: 62px;
+    margin-top: -62px;
+}
+.offset {
+    height: 54px;
+}
+
+/* START SNIPPET */
+section {
+    padding-top: 62px;
+    margin-top: -62px;
+}
+/* END SNIPPET */
+
+#map {
+    height: 100%;
+}
