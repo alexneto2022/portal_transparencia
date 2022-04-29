@@ -12,6 +12,7 @@ class ContratacaoServicos extends Model
 		'id',
         'titulo',
         'texto',
+        'tipoContrata',
         'tipoPrazo',
         'prazoInicial',
         'prazoFinal',

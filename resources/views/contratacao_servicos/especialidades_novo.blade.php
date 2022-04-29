@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+@extends('navbar.default-navbar')
+
+@section('content')
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{Asset('css/app.css')}}">
-    <link rel="shortcut icon" href="{{asset('img/favico.png')}}">
     <title>Nova especialidade</title>
 </head>
 
 <body>
+    <div class="container text-center" style="color: #28a745">Você está em: <strong>{{$unidade->name}}</strong></div>
     <div class="row" style="margin-top: 25px;">
         <div class="col-md-12 col-sm-12 text-center">
             <div class="accordion" id="accordionExample">
@@ -39,11 +36,11 @@
                         </ul>
                     </div>
                     @endif
-                    <form method="POST" action="{{route('salvarEspecialidade')}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('salvarEspecialidade',$id_und)}}" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="card-header">
                             <div class="input-group mb-3">
-                                <a href="{{route('paginaEspecialidade')}}" class="btn btn-warning" style="font-size:16px; margin-left:10px;background-color:rgb(255, 102, 0);color:cornsilk;font-family:arial">voltar</a>
+                                <a href="{{route('paginaEspecialidade',$id_und)}}" class="btn btn-warning" style="font-size:16px; margin-left:10px;background-color:rgb(255, 102, 0);color:cornsilk;font-family:arial">voltar</a>
                             </div>
                         </div>
                         <div style="margin-top:10px;margin-left:15px;margin-right:15px;" class="shadow p-3 mb-5 bg-white rounded">
@@ -61,4 +58,6 @@
     </div>
     </form>
 
-</html>
+</body>
+
+@endsection

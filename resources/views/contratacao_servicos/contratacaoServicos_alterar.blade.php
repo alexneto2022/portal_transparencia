@@ -1,51 +1,24 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{Asset('css/app.css')}}">
-    <link rel="shortcut icon" href="{{asset('img/favico.png')}}">
-    <title>Alteração Contratação de serviços</title>
-    <script language="JavaScript">
-        //Marcar ou desmarcar todas a especialidades
-        function toggle(source) {
-            checkboxes = document.getElementsByClassName('especialidade');
-            for (var i = 0, n = checkboxes.length; i < n; i++) {
-                checkboxes[i].checked = source.checked;
-            }
-        }
-        function desabilitarTipos(valor) {
-            var a = document.getElementById('tipoPrazo').checked;
-
-            if (a == true) {
-                document.getElementById('prazoFinal').disabled = false;
-            } else {
-                document.getElementById('prazoFinal').disabled = true;
-            }
-        }
-        //Verificando se pelo um checkbox especialidade foi marcado
-    </script>
-</head>
+@extends('navbar.default-navbar')
+@section('content')
 
 <body>
+    <div class="container text-center" style="color: #28a745">Você está em: <strong>{{$unidade->name}}</strong></div>
     <div class="row" style="margin-top: 25px;">
         <div class="col-md-12 col-sm-12 text-center">
             <div class="accordion" id="accordionExample">
                 <div class="card">
                     <div class="card-header" id="headingThree" style="background-color: rgb(58, 58, 58);">
-                        <h3 class="mb-0">
+                        <h5 class="mb-0">
                             <a>
-                                <strong style="color:azure;">Alteração contratação de serviço</strong>
+                                <strong style="color:azure;">Alterar contratação de serviço</strong>
                             </a>
-                        </h3>
+                        </h5>
                     </div>
                     @if ($errors->any())
                     <div class="alert alert-danger" style="font-size:20px;">
                         <ul>
                             @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                            <li>{{$error}}</li>
                             @endforeach
                         </ul>
                     </div>
@@ -57,112 +30,153 @@
                     </div>
                     @endif
                     @foreach($contratacao_servicos as $CS)
-                    <form method="POST" action="{{route('alteraContratacao',$CS->id)}}" enctype="multipart/form-data">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <div class="card-header">
-                            <div class="input-group mb-3">
-                                <a href="{{route('paginaContratacaoServicos')}}" class="btn btn-warning" style="font-size:16px; margin-left:10px;background-color:rgb(255, 102, 0);color:cornsilk;font-family:arial">voltar</a>
-                            </div>
-                        </div>
-                        <div style="margin-top:10px;margin-left:15px;margin-right:15px;" class="shadow p-3 mb-5 bg-white rounded">
-                            <div class="input-group mb-3">
-                                <label style="font-family:arial black;font-size:15px;margin-top:20px;margin-left:60px">Texto:</label>
-                                <textarea style="width:1000px;height:60px;margin-top:15px;margin-left:20px" type="textarea" id=texto name="texto" rows="4" cols="50">{{$CS->texto}}</textarea>
-                            </div>
-                            <div class="input-group mb-3">
-                                <label style="font-family:arial black;font-size:15px;margin-top:20px;margin-left:60px">Com Prazo limite ?</label>
-                                <label style="font-family:arial black;font-size:15px;margin-top:20px;margin-left:10px">Sim</label>
-                                <?php $selected = ""; if($CS->tipoPrazo == 1){
-                                     $selected = "checked";}?>
-                                <input style="font-family:arial black;font-size:15px;margin-top:25px;margin-left:20px" type="checkbox" <?php echo $selected ?> id="tipoPrazo" name="tipoPrazo" value="1" onclick="desabilitarTipos('sim')" />
-                                <label style="font-family:arial black;font-size:15px;margin-top:20px;margin-left:60px">Data prazo inicial:</label>
-                                <input style=" height: 40px;margin-top:15px;margin-left:20px" type="date" id=prazoInicial name="prazoInicial" rows="4" cols="50" value="{{$CS->prazoInicial}}" ></input>
-                                <label style="font-family:arial black;font-size:15px;margin-top:20px;margin-left:20px">Data prazo final:</label>
-                                @if(old('tipo_mov1') == "on" || $CS->tipoPrazo == 1)
-                                <input style=" height: 40px;margin-top:15px;margin-left:20px" type="date" id=prazoFinal name="prazoFinal" rows="4" cols="50" value="{{$CS->prazoFinal}}"></input>
-                                @else
-                                <input style=" height: 40px;margin-top:15px;margin-left:20px" type="date" id=prazoFinal name="prazoFinal" rows="4" cols="50" disabled ></input>
-                                @endif  
-                            </div>
-                            <div class="input-group mb-3">
-                                <label style="font-family:arial black;font-size:15px;margin-top:20px;margin-left:60px">Unidade:</label>
-                                <select style="width:500px; height: 40px;margin-top:15px;margin-left:20px" name="unidade_id" id="unidade_id">
-                                    @foreach($Unidades as $unidade)
-                                    <option value="{{$unidade->id}}"
-                                    <?php if($unidade->id == $unidade_id){
-                                        echo "selected";} 
-                                    ?>>{{$unidade->name}}</option>
-                                    @endforeach
-                                </select>
+                    <div class="container">
+                        <form method="POST" action="{{route('alteraContratacao',array($CS->id,$id_und))}}" enctype="multipart/form-data">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <div style="margin-top:5px;margin-left:15px;margin-right:15px;" class="shadow p-3 mb-5 bg-white rounded">
+                                <div class="d-flex flex-wrap justify-content-center">
+                                    <div class="m-2">
+                                        <label style="font-family:Arial black, Helvetica, sans-serif;">Título:</label>
+                                    </div>
+                                    <div class="m-2">
+                                        <input class="form-control" style="width:400px;" type="text" name="titulo" id="titulo" value="{{$CS->titulo}}" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    </div>
+                                    <div class="m-2">
+                                        <label style="font-family:Arial black, Helvetica, sans-serif;">Tipo contratação:</label>
+                                    </div>
+                                    <div class="m-2">
+                                        <select class="custom-select" style="width: 200px;" name="tipoContrata" id="tipoContrata">
+                                            <option value="1" <?php if ($CS->tipoContrata == 1) {
+                                                                    echo "selected";
+                                                                } ?>>Obra e reforma</option>
+                                            <option value="2" <?php if ($CS->tipoContrata == 2) {
+                                                                    echo "selected";
+                                                                } ?>>Serviço</option>
+                                            <option value="3" <?php if ($CS->tipoContrata == 3) {
+                                                                    echo "selected";
+                                                                } ?>>Aquisição</option>
+                                        </select>
+                                        <input hidden name="unidade_id" id="unidade_id" value="{{$unidade_id}}" type="text" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-4">
+                                        <label style="font-family:Arial black, Helvetica, sans-serif;font-size:15px;">Texto:</label>
+                                        <textarea class="form-control" style=" height: 40px;" id=texto name="texto" aria-label="With textarea">{{$CS->texto}}</textarea>
+                                        <p><label for="review"></label> <small class="caracteres"></small></p>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-wrap justify-content-center" style="border-top:1px solid gray;">
+                                    <div class="m-2">
+                                        <label style="font-family:arial black;">Com Prazo limite ?</label>
+                                        <label style="font-family:arial black;">Sim</label>
+                                        <?php $selected = "";
+                                        if ($CS->tipoPrazo == 1) {
+                                            $selected = "checked";
+                                        } ?>
+                                        <input type="checkbox" <?php echo $selected ?> id="tipoPrazo" name="tipoPrazo" value="1" onclick="desabilitarTipos('sim')" />
+                                    </div>
+                                    <div class="m-2">
+                                        <label style="font-family:Arial black, Helvetica, sans-serif;">Data prazo inicial:</label>
+                                        <input type="date" id=prazoInicial name="prazoInicial" rows="4" cols="50" value="{{$CS->prazoInicial}}"></input>
+                                    </div>
+                                    <div class="m-2">
+                                        <label style="font-family:Arial black, Helvetica, sans-serif;">Data prazo final:</label>
+                                        <input type="date" id=prazoFinal name="prazoFinal" rows="4" cols="50" value="{{$CS->prazofinal}}" <?php if ($CS->tipoPrazo == 0) {
+                                                                                                                                                echo "disabled";
+                                                                                                                                            } ?>></input>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-wrap justify-content-center">
+                                    <div class="m-3">
+                                        <label style="font-family:arial black;">Arquivo:</label>
+                                    </div>
                                     @if($CS->arquivo !== "")
-                                    <label style="font-family:arial black;font-size:15px;margin-top:20px;margin-left:10px">Arquivo:</label>
-                                    <td>
-                                        <a href="{{asset('storage/')}}/{{$CS->arquivo}}" target="_blank" title="<?php echo $CS->arquivo; ?>" class="list-group-item list-group-item-action" style="width:350px;height:70px; font-family:arial black; font-size:15px;margin-left:10px"><?php echo explode('/', (substr($CS->arquivo,0,80)))[1]; ?></a>
-                                    </td>
-                                    <td>
-                                        <a type="submit" class="btn btn-danger btn-sm" href="{{route('exclArqContr',$CS->id)}}" style="margin-left:10px;;margin-top:20px;height:25px">X<i class="fas fa-times-circle"></i></a>
-                                    </td>
+                                    <div class="m-3">
+                                        <a href="{{asset('storage/')}}/{{$CS->arquivo}}" class="form-control" target="_blank" title="<?php echo $CS->arquivo; ?>" style="height:70px; font-family:arial black;"><?php echo explode('/', (substr($CS->arquivo, 0, 60)))[1]; ?></a>
+                                    </div>
+                                    <div class="m-3">
+                                        <a type="submit" class="btn btn-danger" href="{{route('exclArqContr', array($CS->id,$id_und))}}"><i class="fas fa-times-circle m-2"></i></a>
+                                    </div>
                                     @else
-                                    <label style="font-family:arial black;font-size:15px;margin-top:20px;margin-left:10px">Arquivo:</label>
-                                    <input style="font-family:arial black;font-size:15px;margin-top:20px;margin-left:10px" type="file" id="nome_arq" name="nome_arq"></input>
+                                    <div class="m-3">
+                                        <input class="form-control" style="font-family:arial black;" type="file" id="nome_arq" name="nome_arq"></input>
+                                    </div>
                                     @endif
-                            </div>
-                            <div class="input-group mb-3">
-                            <label style="font-family:Arial black, Helvetica, sans-serif;margin-left:10px;margin-bottom:30px;">Especialidades atualmente vinculadas a este contrato de serviço:</label>
-                            <table class="table table-hover">
-                                    <tr>
-                                        <?php $i = 1; ?>
-                                        <?php $m = 8; ?>
-                                        @foreach($especialidades as $especialidade)
-                                        @foreach($especialidade_contratacao as $Especialidade_contratacao)
-                                        @if($especialidade->id == $Especialidade_contratacao->especialidades_id)
-                                        <td>
-                                            <label>&nbsp{{$especialidade->nome}}</label>
-                                            <a href="{{route('exclEspeContr',[$CS->id,$especialidade->id])}}" class="btn btn-danger btn-sm">Excluir</a>
-                                        @endif 
-                                        @if($i == $m )
-                                            <?php $m += 8; ?>
-                                        </td>
-                                    </tr>
-                                    @endif
-                                    @endforeach
-                                    <?php $i++; ?>
-                                    @endforeach 
-                                    </tr>    
-                                </table>
-                                <div>
-                                <label style="font-family:Arial black, Helvetica, sans-serif;margin-left:10px;margin-bottom:30px;">
-                                Escolha as novas especialidades:</label>
                                 </div>
-                                <table class="table table-hover">
-                                    <tr>
-                                        <input style="margin-left:20px;margin-top: 5px;" type="checkbox" onClick="toggle(this)" />
-                                        <label style="font-family:Arial black, Helvetica, sans-serif;margin-left:10px;margin-bottom:30px;">Marcar/desmarcar todos</label>
-                                        <?php $i = 1; ?>
-                                        <?php $m = 8; ?>
-                                        @foreach($especialidades as $especialidade)
-                                        <td>
-                                            <input type="checkbox" id="especialidade[]" class="especialidade" name="especialidade[]" value="<?php echo $especialidade->id; ?>">&nbsp{{$especialidade->nome}}</input>
-                                            @if($i == $m)
-                                            <?php $m += 8; ?>
-                                        </td>
-                                    </tr>
-                                    @endif
-                                    <?php $i++; ?>
-                                    @endforeach
-                                    </tr>
-                                </table>
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-info btn-sm" style="font-size:20px" value="Excluir" id="Salvar" name="Salvar">Alterar</button>
+                                <div class="d-flex m-3 justify-content-center" style="border-top:1px solid gray;">
+                                    <div class="m-3">
+                                        <input s type="checkbox" onClick="toggle(this)" />
+                                        <label style="font-family:Arial black, Helvetica, sans-serif;">Marcar/desmarcar todos</label>
+                                    </div>
                                 </div>
-                        </div>
+                                <div class="d-flex flex-wrap justify-content-between">
+                                    @foreach($especialidades as $especialidade)
+                                    <?php
+                                    $marcado = '';
+                                    if (in_array($especialidade->id, $especialidade_contratacao))
+                                        $marcado = 'checked';
+                                    ?>
+                                    <div class="p-2">
+                                        <input type="checkbox" id="especialidade[]" class="especialidade" name="especialidade[]" <?php echo $marcado; ?> value="<?php echo $especialidade->id; ?>">&nbsp{{$especialidade->nome}}</input>
+                                    </div>
+                                    @endforeach
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6" style="margin-top: 20px;">
+                                        <a href="{{route('paginaContratacaoServicos',$id_und)}}" class="btn btn-warning" style="color:white; font-size: 18px;">voltar</a>
+                                    </div>
+                                    <div class="col-md-6" style="margin-top: 20px;">
+                                        <input type="submit" value="Salvar" id="Salvar" name="Salvar" class="btn btn-success btn-sm" style="font-size:18px" />
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
                 </div>
             </div>
         </div>
+        </form>
+        @endforeach
     </div>
-    </form>
-    
-    @endforeach
+    <script language="JavaScript">
+        //Marcar ou desmarcar todas a especialidades
+        function toggle(source) {
+            checkboxes = document.getElementsByClassName('especialidade');
+            for (var i = 0, n = checkboxes.length; i < n; i++) {
+                checkboxes[i].checked = source.checked;
+            }
+        }
 
-</html>
+        function desabilitarTipos(valor) {
+            var a = document.getElementById('tipoPrazo').checked;
+            if (a == true) {
+                document.getElementById('prazoFinal').disabled = false;
+            } else {
+                document.getElementById('prazoFinal').disabled = true;
+            }
+        }
+        //Contador de caracteres
+        $(document).on("input", "#texto", function() {
+            var limite = 255;
+            var informativo = "caracteres restantes.";
+            var caracteresDigitados = $(this).val().length;
+            var caracteresRestantes = limite - caracteresDigitados;
+
+            if (caracteresRestantes <= 0) {
+                var comentario = $("textarea[name=texto]").val();
+                $("textarea[name=texto]").val(comentario.substr(0, limite));
+                $(".caracteres").text("0 " + informativo);
+            } else if (caracteresRestantes >= 16) {
+                $(".caracteres").css("color", "#000000");
+                $(".caracteres").text(caracteresRestantes + " " + informativo);
+            } else if (caracteresRestantes >= 0 && caracteresRestantes <= 15) {
+                $(".caracteres").css("color", "red");
+                $(".caracteres").text(caracteresRestantes + " " + informativo);
+            } else {
+                $(".caracteres").text(caracteresRestantes + " " + informativo);
+            }
+        });
+    </script>
+</body>
+@endsection
