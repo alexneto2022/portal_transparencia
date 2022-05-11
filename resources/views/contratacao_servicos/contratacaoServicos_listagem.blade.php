@@ -88,9 +88,6 @@
                                         <button type="submit" class="btn btn-primary" name="Pesquisar">Pesquisar</button>
                                     </div>
                                 </div>
-                                <div class="d-flex flex-wrap justify-content-center" style="overflow:auto">
-
-                                </div>
                         </form>
                     </div>
                 </div>
@@ -112,9 +109,9 @@
                             <tr>
                                 <td style="width:20px;">
                                     <?php $hoje = date('Y-m-d'); ?>
-                                    @if($CS->prazoInicial > $hoje && $CS->prazofinal > $hoje)
+                                    @if(($CS->prazoInicial > $hoje && $CS->prazofinal > $hoje)||($CS->prazoInicial > $hoje && $CS->prazofinal == ""))
                                     <button type="button" class="btn btn-info"></button>
-                                    @elseif($CS->prazoInicial <= $hoje && $CS->prazofinal >= $hoje)
+                                    @elseif(($CS->prazoInicial <= $hoje && $CS->prazofinal >= $hoje)||($CS->prazoInicial <= $hoje && $CS->prazofinal == "" && $CS->prazoProrroga == "") )
                                         <button type="button" class="btn btn-success"></button>
                                         @elseif($CS->prazoInicial < $hoje && $CS->prazofinal < $hoje && $CS->prazoProrroga == "")
                                                 <button type="button" class="btn btn-danger"></button>

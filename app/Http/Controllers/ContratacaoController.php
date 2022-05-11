@@ -825,10 +825,11 @@ class ContratacaoController extends Controller
 						if ($unidade['id'] === $i) {
 							$txt1 = $unidades[$i - 1]['path_img'];
 							$txt1 = explode(".jpg", $txt1);
-							$nome = $_FILES['file_path']['name'];
+							$DateAndTime = date('mdYhis', time()); 
+							$nome = $DateAndTime . $_FILES['file_path' ]['name'];
 							if ($request->file('file_path') !== NULL) {
 								$request->file('file_path')->move('../public/storage/contratos/' . $txt1[0] . '/aditivos/', $nome);
-								$input['file_path'] = 'contratos/' . $txt1[0] . '/aditivos/1-' . $nome;
+								$input['file_path'] = 'contratos/' . $txt1[0] . '/aditivos/' . $nome;
 							}
 							$aditivos = Aditivo::find($id_aditivo);
 							$aditivos->update($input);

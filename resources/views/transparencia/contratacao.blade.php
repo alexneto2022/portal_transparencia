@@ -270,15 +270,6 @@
 					@endif
 					@endforeach
 					@endif
-					@if(Auth::check())
-					@foreach ($permissao_users as $permissao)
-					@if(($permissao->permissao_id == 26) && ($permissao->user_id == Auth::user()->id))
-					@if ($permissao->unidade_id == $unidade->id)
-					<a class="btn btn-success btn-sm" style="color: black;" href="{{route('paginaContratacaoServicos',$unidade->id)}}"> <b>Processos</b> <i class="fa-solid fa-bullhorn"></i></a>
-					@endif
-					@endif
-					@endforeach
-					@endif
 				</h2>
 			</div>
 			<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">

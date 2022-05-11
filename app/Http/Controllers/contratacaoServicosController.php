@@ -161,12 +161,12 @@ class ContratacaoServicosController extends Controller
         } elseif ($input['filtro'] == "titulo") {
             if (isset($input['titulo']) == false) {
                 $validator = "Processo de contratação não localizada";
-                $contratacao_servicos = ContratacaoServicos::where('titulo', 'like', '%' . $input['titulo'] . '%')->get();
+                $contratacao_servicos = ContratacaoServicos::where('titulo', 'like', '%' . $input['titulo'] . '%')->where('unidade_id', $id_und)->get();
                 return view('contratacao_servicos/contratacaoServicos_listagem', compact('contratacao_servicos', 'sucesso', 'unidades', 'id_und', 'unidadesMenu', 'unidade'))
                     ->withErrors($validator)
                     ->withInput(session()->flashInput($request->input()));
             } else {
-                $contratacao_servicos = ContratacaoServicos::where('titulo', 'like', '%' . $input['titulo'] . '%')->get();
+                $contratacao_servicos = ContratacaoServicos::where('titulo', 'like', '%' . $input['titulo'] . '%')->where('unidade_id', $id_und)->get();
                 return view('contratacao_servicos/contratacaoServicos_listagem', compact('contratacao_servicos', 'sucesso', 'unidades', 'id_und', 'unidadesMenu', 'unidade'));
             }
         } elseif ($input['filtro'] == "tipo") {
@@ -175,28 +175,36 @@ class ContratacaoServicosController extends Controller
                 return view('contratacao_servicos/contratacaoServicos_listagem', compact('contratacao_servicos', 'sucesso', 'unidades', 'id_und', 'unidadesMenu', 'unidade'))
                     ->withInput(session()->flashInput($request->input()));
             } else {
-                $contratacao_servicos = ContratacaoServicos::where('tipoContrata', $input['tipocontrato'])->get();
+                $contratacao_servicos = ContratacaoServicos::where('tipoContrata', $input['tipocontrato'])->where('unidade_id', $id_und)->get();
                 return view('contratacao_servicos/contratacaoServicos_listagem', compact('contratacao_servicos', 'sucesso', 'unidades', 'id_und', 'unidadesMenu', 'unidade'));
             }
         } elseif ($input['filtro'] == "data") {
-            if (isset($input['dtini']) == false || isset($input['dtfim']) == false) {
-                $validator = "Digite a data inicio e data fim";
+            if (isset($input['dtini']) == false) {
+                $validator = "Digite uma data de inicio";
                 $contratacao_servicos = ContratacaoServicos::where('unidade_id', $id_und)->get();
                 return view('contratacao_servicos/contratacaoServicos_listagem', compact('contratacao_servicos', 'sucesso', 'unidades', 'id_und', 'unidadesMenu', 'unidade'))
                     ->withErrors($validator)
                     ->withInput(session()->flashInput($request->input()));
-            } elseif ($input['dtini'] > $input['dtfim']) {
-                $validator = "A data inicial precisa ser menor ou igual a final";
-                $contratacao_servicos = ContratacaoServicos::where('unidade_id', $id_und)->get();
-                return view('contratacao_servicos/contratacaoServicos_listagem', compact('contratacao_servicos', 'sucesso', 'unidades', 'id_und', 'unidadesMenu', 'unidade'))
-                    ->withErrors($validator)
-                    ->withInput(session()->flashInput($request->input()));
+            } elseif (isset($input['dtfim']) == true) {
+                if ($input['dtini'] > $input['dtfim']) {
+                    $validator = "A data inicial precisa ser menor ou igual a final";
+                    $contratacao_servicos = ContratacaoServicos::where('unidade_id', $id_und)->get();
+                    return view('contratacao_servicos/contratacaoServicos_listagem', compact('contratacao_servicos', 'sucesso', 'unidades', 'id_und', 'unidadesMenu', 'unidade'))
+                        ->withErrors($validator)
+                        ->withInput(session()->flashInput($request->input()));
+                } else {
+                    $contratacao_servicos = DB::table('contratacao_servicos')
+                        ->where('unidade_id', $id_und)
+                        ->whereRaw('(contratacao_servicos.prazoInicial  >= "' . $input['dtini'] . '"')
+                        ->whereRaw('contratacao_servicos.prazofinal  <= "' . $input['dtfim'] . '")')
+                        ->orwhereRaw('contratacao_servicos.prazoProrroga  <= "' . $input['dtfim'] . '"')
+                        ->get();
+                    return view('contratacao_servicos/contratacaoServicos_listagem', compact('contratacao_servicos', 'sucesso', 'unidades', 'id_und', 'unidadesMenu', 'unidade'));
+                }
             } else {
                 $contratacao_servicos = DB::table('contratacao_servicos')
                     ->where('unidade_id', $id_und)
-                    ->whereRaw('(contratacao_servicos.prazoInicial  >= "' . $input['dtini'] . '"')
-                    ->whereRaw('contratacao_servicos.prazofinal  <= "' . $input['dtfim'] . '")')
-                    ->orwhereRaw('contratacao_servicos.prazoProrroga  <= "' . $input['dtfim'] . '"')
+                    ->whereRaw('contratacao_servicos.prazoInicial  >= "' . $input['dtini'] . '"')
                     ->get();
                 return view('contratacao_servicos/contratacaoServicos_listagem', compact('contratacao_servicos', 'sucesso', 'unidades', 'id_und', 'unidadesMenu', 'unidade'));
             }
@@ -208,18 +216,22 @@ class ContratacaoServicosController extends Controller
                     ->withErrors($validator)
                     ->withInput(session()->flashInput($request->input()));
             } elseif ($input['status'] == 1) {
+                //em breve
+                $where = '(contratacao_servicos.unidade_id = "' . $id_und . '" and 
+                ((contratacao_servicos.prazoInicial  > "' . $hoje  . '" and contratacao_servicos.prazofinal  > "' . $hoje  . '")
+                or(contratacao_servicos.prazoInicial  > "' . $hoje  . '" and contratacao_servicos.prazofinal is null)))';
+
                 $contratacao_servicos = DB::table('contratacao_servicos')
-                    ->where('unidade_id', $id_und)
-                    ->whereRaw('(contratacao_servicos.prazoInicial  > "' . $hoje  . '"')
-                    ->whereRaw('contratacao_servicos.prazofinal  > "' . $hoje  . '")')
+                    ->whereRaw($where)
                     ->get();
                 return view('contratacao_servicos/contratacaoServicos_listagem', compact('contratacao_servicos', 'sucesso', 'unidades', 'id_und', 'unidadesMenu', 'unidade'));
             } elseif ($input['status'] == 2) {
                 //divulgando
+                $where = '(contratacao_servicos.unidade_id = "' . $id_und . '"
+                and ((contratacao_servicos.prazoInicial  <= "' . $hoje  . '" and contratacao_servicos.prazofinal >= "' . $hoje  . '") 
+                or (contratacao_servicos.prazoInicial  <= "' . $hoje  . '" and contratacao_servicos.prazofinal is null and contratacao_servicos.prazoProrroga is null)))';
                 $contratacao_servicos = DB::table('contratacao_servicos')
-                    ->where('unidade_id', $id_und)
-                    ->whereRaw('(contratacao_servicos.prazoInicial  <= "' . $hoje  . '"')
-                    ->whereRaw('contratacao_servicos.prazofinal  >= "' . $hoje  . '")')
+                    ->whereRaw($where)
                     ->get();
                 return view('contratacao_servicos/contratacaoServicos_listagem', compact('contratacao_servicos', 'sucesso', 'unidades', 'id_und', 'unidadesMenu', 'unidade'));
             } elseif ($input['status'] == 3) {
@@ -232,10 +244,11 @@ class ContratacaoServicosController extends Controller
                 return view('contratacao_servicos/contratacaoServicos_listagem', compact('contratacao_servicos', 'sucesso', 'unidades', 'id_und', 'unidadesMenu', 'unidade'));
             } elseif ($input['status'] == 4) {
                 //Finalizado;
+                $where = '(contratacao_servicos.unidade_id = "' . $id_und . '") 
+                and ((contratacao_servicos.prazoInicial  < "' . $hoje  . '" and contratacao_servicos.prazofinal  < "' . $hoje  . '")
+                and (contratacao_servicos.prazoProrroga  < "' . $hoje  . '" or contratacao_servicos.prazoProrroga is null))';
                 $contratacao_servicos = DB::table('contratacao_servicos')
-                    ->where('unidade_id', $id_und)
-                    ->whereRaw('(contratacao_servicos.prazoInicial  < "' . $hoje  . '"')
-                    ->whereRaw('contratacao_servicos.prazofinal  < "' . $hoje  . '")')
+                    ->whereRaw($where)
                     ->get();
                 return view('contratacao_servicos/contratacaoServicos_listagem', compact('contratacao_servicos', 'sucesso', 'unidades', 'id_und', 'unidadesMenu', 'unidade'));
             }
@@ -261,18 +274,21 @@ class ContratacaoServicosController extends Controller
         return view('contratacao_servicos/contratacaoServicos_excluir', compact('contratacao_servicos', 'Unidades', 'sucesso', 'especialidades', 'especialidade_contratacao', 'id_und', 'unidades', 'unidadesMenu', 'unidade'));
     }
     //Excluir contratação
-    public function excluirContratacao($id, $id_und)
+     public function excluirContratacao($id,$id_und)
     {
-        EspecialidadeContratacao::where('contratacao_servicos_id', $id)->delete();
-        ContratacaoServicos::find($id)->delete();
+        $input['status'] = 0;
+        $contratacao_servicos = ContratacaoServicos::where('id',$id);
+        $contratacao_servicos->update($input);
         $unidades = Unidade::all();
-        $contratacao_servicos = ContratacaoServicos::all();
+        $contratacao_servicos = ContratacaoServicos::where('status',1);
         $especialidades = Especialidades::all();
         $unidades = Unidade::all();
         $unidadesMenu = Unidade::all();
-        $unidade = $unidadesMenu->find($id_und);
         $validator = "Contratação de serviço exluida com sucesso";
-        return redirect()->route('paginaContratacaoServicos', compact('contratacao_servicos', 'especialidades', 'unidades', 'id_und', 'unidade', 'unidadesMenu'));
+        return redirect()->route('paginaContratacaoServicos', $id_und)
+                ->withErrors($validator)
+                ->with('contratacao_servicos', 'Unidades','unidades', 'especialidades', 'sucesso', 'validator', 'unidade', 'unidadesMenu', 'id_und');
+    
     }
     //Excluir especialidade do contrato
     public function exclEspeContr($idContr, $idEsp, $id_und)

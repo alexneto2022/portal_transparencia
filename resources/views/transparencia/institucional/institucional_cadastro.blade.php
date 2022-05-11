@@ -112,7 +112,7 @@
 	<table>
 		<tr>
 			<td>
-				<a href="{{route('trasparenciaHome', $unidade->id)}}" id="Voltar" name="Voltar" type="button" class="btn btn-warning btn-sm" style="margin-top: 10px; color: #FFFFFF;"> Voltar <i class="fas fa-undo-alt"></i> </a>
+				<a href="{{route('transparenciaHome', $unidade->id)}}" id="Voltar" name="Voltar" type="button" class="btn btn-warning btn-sm" style="margin-top: 10px; color: #FFFFFF;"> Voltar <i class="fas fa-undo-alt"></i> </a>
 			</td>
 			<td> 
 				<a class="btn btn-success btn-sm" style="margin-top: 10px;" href="{{route('institucionalAlterar', $unidade->id)}}"> Alterar <i class="fas fa-edit"></i></a>

@@ -147,7 +147,7 @@
                 checkboxes[i].checked = source.checked;
             }
         }
-
+        // Função desabilita data final de processo
         function desabilitarTipos(valor) {
             var a = document.getElementById('tipoPrazo').checked;
             if (a == true) {

@@ -182,11 +182,10 @@ class IndexController extends Controller
     public function rp()
     {
         $hoje = date('Y-m-d', strtotime('now'));
+        $where = '(contratacao_servicos.prazoInicial <= CURDATE() and (contratacao_servicos.prazoFinal >= CURDATE() or contratacao_servicos.prazoFinal is null)) or contratacao_servicos.prazoProrroga >= CURDATE()';
         $contratacao_servicos = DB::table('contratacao_servicos')
             ->join('unidades', 'unidades.id', '=', 'contratacao_servicos.unidade_id')
-            ->whereRaw('contratacao_servicos.prazoInicial <= CURDATE()')
-            ->whereRaw('contratacao_servicos.prazoFinal >= CURDATE()')
-            ->orWhereRaw('contratacao_servicos.prazoProrroga >= CURDATE()')
+            ->whereRaw($where)
             ->select(
                 'unidades.path_img as path_img',
                 'contratacao_servicos.tipoPrazo as tipoPrazo',
