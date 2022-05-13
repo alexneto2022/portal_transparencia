@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unidade extends Model
 {
-	
+
 	protected $table = 'unidades';
 
 	protected $fillable = [
-	    'id',
+		'id',
 		'owner',
 		'cnpj',
 		'name',
@@ -24,7 +24,7 @@ class Unidade extends Model
 		'time',
 		'telefone',
 		'capacity',
-		'speciality',
+		'specialty',
 		'cnes',
 		'path_img',
 		'icon_img',
@@ -32,13 +32,12 @@ class Unidade extends Model
 		'created_at',
 		'updated_at',
 	];
-	
+
 	public $rulesCadastro = [
-		
+
 		'owner' => 'required',
 		'cnpj'  => 'required',
 		'name'  => 'required',
 		'telefone' => 'required'
 	];
-	
 }

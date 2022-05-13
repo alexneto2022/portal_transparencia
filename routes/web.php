@@ -12,7 +12,7 @@ Route::prefix('transparencia')->group(function () {
 	Route::get('superintendente/export', 'IndexController@exportSuperintendente')->name('exportSuperintendente');
 	Route::get('estatuto/{id}', 'IndexController@transparenciaEstatuto')->name('transparenciaEstatuto');
 	Route::get('documentos/{id}/{escolha}', 'IndexController@transparenciaDocumento')->name('transparenciaDocumento');
-	Route::get('organizacional/{id}', 'IndexController@transparenciaOrganizacional')->name('transparenciaOrganizacional');
+	Route::get('organizacional/{id}', 'IndexController@trasparenciaOrganizacional')->name('transparenciaOrganizacional');
 	Route::get('decreto/{id}', 'IndexController@transparenciaDecreto')->name('transparenciaDecreto');
 	Route::get('manual/{id}', 'IndexController@transparenciaManual')->name('transparenciaManual');
 	Route::get('pregao/{id}', 'IndexController@transparenciaPregao')->name('transparenciaPregao');

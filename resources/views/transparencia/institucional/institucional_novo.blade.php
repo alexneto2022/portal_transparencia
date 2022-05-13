@@ -1,13 +1,17 @@
 @extends('navbar.default-navbar')
+
+
+
 @section('content')
+
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="container text-center" style="color: #28a745">Você está em: <strong>{{$unidade->name}}</strong></div>
 <div class="container-fluid">
-	<div class="row mt-4">
+	<div class="row" style="margin-top: 25px;">
 		<div class="col-md-12 text-center">
 			<h5 style="font-size: 18px;">CADASTRAR INSTITUCIONAL:</h5>
 		</div>
-	</div>
+	</div><br />
 	@if ($errors->any())
 	<div class="alert alert-danger">
 		<ul>
@@ -24,7 +28,7 @@
 			</a>
 		</div>
 	</div>
-	<form action="{{\Request::route('store', $unidade->id)}}" method="post" enctype="multipart/form-data">
+	<form action="{{\Request::route('store')}}" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<div class="form-row mt-2">
 			<div class="form-group col-md-12">
@@ -153,7 +157,8 @@
 		</div>
 	</form>
 </div>
-<script type="text/javascript">
+
+<script>
 	document.addEventListener('keydown', function(event) { //pega o evento de precionar uma tecla
 		if (event.keyCode != 46 && event.keyCode != 8) { //verifica se a tecla precionada nao e um backspace e delete
 			var i = document.getElementById("telefone").value.length; //aqui pega o tamanho do input
@@ -197,4 +202,12 @@
 		});
 	}
 </script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#telefone').mask('0000-0000');
+	});
+</script>
+
+
 @endsection

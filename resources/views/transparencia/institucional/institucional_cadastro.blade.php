@@ -113,13 +113,6 @@
                 </table>
             </div>
         </div>
-
-        <table>
-            <tr>
-
-                </td>
-            </tr>
-        </table>
     </form>
 </div>
 </div>

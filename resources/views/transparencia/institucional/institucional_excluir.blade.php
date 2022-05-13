@@ -11,7 +11,7 @@
 		<div class="col-md-12 text-center">
 			<h5 style="font-size: 18px;">EXCLUIR INSTITUCIONAL:</h5>
 		</div>
-	</div><br />
+	</div>
 	@if ($errors->any())
 	<div class="alert alert-danger">
 		<ul>

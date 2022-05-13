@@ -65,7 +65,7 @@ class InstitucionalController extends Controller
 		$unidadesMenu = $this->unidade->all();
 		$unidades = $unidadesMenu;
 		$unidade = $unidadesMenu->find($id);
-		$input = $request->all();		
+		$input = $request->all();	
 		$nome = $_FILES['path_img']['name']; 		
 		$extensao = pathinfo($nome, PATHINFO_EXTENSION);		
 		$nomeI = $_FILES['icon_img']['name']; 		
