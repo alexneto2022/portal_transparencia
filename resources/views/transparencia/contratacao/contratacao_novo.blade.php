@@ -1,24 +1,5 @@
 @extends('navbar.default-navbar')
 @section('content')
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#vinculado').hide();
-		$('#aditivos').change(function() {
-			if ($('#aditivos').val() !== 0) {
-				$('#vinculado').show();
-			} else {
-				$('#vinculado').hide();
-			}
-		});
-		$('#aditivos').change(function() {
-			if ($('#aditivos').val() == 0) {
-				$('#vinculado').hide();
-			} else {
-				$('#vinculado').show();
-			}
-		});
-	});
-</script>
 
 <div class="container text-center" style="color: #28a745">Você está em: <strong>{{$unidade->name}}</strong></div>
 <div class="container-fluid">
@@ -184,4 +165,23 @@
 	</div>
 </div>
 </div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#vinculado').hide();
+		$('#aditivos').change(function() {
+			if ($('#aditivos').val() !== 0) {
+				$('#vinculado').show();
+			} else {
+				$('#vinculado').hide();
+			}
+		});
+		$('#aditivos').change(function() {
+			if ($('#aditivos').val() == 0) {
+				$('#vinculado').hide();
+			} else {
+				$('#vinculado').show();
+			}
+		});
+	});
+</script>
 @endsection

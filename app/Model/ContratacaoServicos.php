@@ -31,6 +31,7 @@ class ContratacaoServicos extends Model
         'dtup_errat_3',
         'unidade_id',
 		'created_at',
-		'updated_at'
+		'updated_at',
+		'status'
 	];
 }

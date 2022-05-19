@@ -72,7 +72,6 @@ class ContratosCron extends Command
             $aviso_venc60 = $contratos[$i]->aviso_venc60;
             $link = $contratos[$i]->file_path;
             $http = "http";
-            $linkCompleto = str_contains($link,$http);
             $prestador = $contratos[$i]->prestador;
             $undNome = $contratos[$i]->unidade;
             $undSigla = $contratos[$i]->undSigla;
@@ -96,7 +95,7 @@ class ContratosCron extends Command
                 ], function ($m) use ($EmailGestor) {
                     $m->from('portal@hcpgestao.org.br', 'Portal da Transparencia');
                     $m->subject('Contratos prestes a vencer!');
-                    $m->to('alex.neto@hcpgestao.org.br');
+                    $m->to($EmailGestor);
                 });
                 sleep(60);
             } elseif ((strtotime($hoje) == strtotime($data60)) && ($aviso_venc60 == 0 || $aviso_venc60 == "")) {
@@ -114,7 +113,7 @@ class ContratosCron extends Command
                 ], function ($m) use ($EmailGestor) {
                     $m->from('portal@hcpgestao.org.br', 'Portal da Transparencia');
                     $m->subject('Contratos prestes a vencer!');
-                    $m->to('alex.neto@hcpgestao.org.br');
+                    $m->to($EmailGestor);
                 });
                 sleep(60);
             }
@@ -151,7 +150,6 @@ class ContratosCron extends Command
             $aviso_venc60 = $aditContra[$i]->aviso_venc60;
             $link = $aditContra[$i]->file_path;
             $http = "http";
-            $linkCompleto = str_contains($link,$http);
             $prestador = $aditContra[$i]->prestador;
             $undNome = $aditContra[$i]->unidade;
             $undSigla = $aditContra[$i]->undSigla;
@@ -175,7 +173,7 @@ class ContratosCron extends Command
                 ], function ($m) use ($EmailGestor) {
                     $m->from('portal@hcpgestao.org.br', 'Portal da Transparencia');
                     $m->subject('Contratos prestes a vencer!');
-                    $m->to('alex.neto@hcpgestao.org.br');
+                    $m->to($EmailGestor);
                 });
                 sleep(60);
             } elseif ((strtotime($hoje) == strtotime($data60)) && ($aviso_venc60 == 0 || $aviso_venc60 == "")) {
@@ -193,7 +191,7 @@ class ContratosCron extends Command
                 ], function ($m) use ($EmailGestor) {
                     $m->from('portal@hcpgestao.org.br', 'Portal da Transparencia');
                     $m->subject('Contratos prestes a vencer!');
-                    $m->to('alex.neto@hcpgestao.org.br');
+                    $m->to($EmailGestor);
                 });
                 sleep(60);
             }

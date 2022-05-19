@@ -1,5 +1,6 @@
 @extends('navbar.default-navbar')
 @section('content')
+
 <div class="container text-center" style="color: #28a745">Você está em: <strong>{{$unidade->name}}</strong></div>
 <div class="container-fluid">
 	<div class="row" style="margin-bottom: 25px; margin-top: 25px;">
@@ -8,8 +9,8 @@
 		</div>
 	</div>
 	<div class="row justify-content-md-between justify-content-center">
-		<div class="col-6 p-3">
-			<a class="btn btn-warning btn-sm text-white" href="{{route('transparenciaOrganizacional', $unidade->id)}}"><strong> Voltar <strong><i class="fas fa-undo-alt"></i></a></td>
+		<div class="col-6 p-2">
+			<a class="btn btn-warning btn-sm text-white" href="{{route('trasparenciaOrganizacional', $unidade->id)}}"><strong> Voltar <strong><i class="fas fa-undo-alt"></i></a></td>
 		</div>
 		<div class="p-2">
 			<?php if (sizeof($regimentos) == 0) { ?>
@@ -20,11 +21,11 @@
 			<?php } ?>
 		</div>
 	</div>
-</div>
-<?php if (sizeof($regimentos) > 0) { ?>
-	<div class="embed-responsive embed-responsive-16by9">
-		<iframe class="embed-responsive-item" src="{{asset('storage')}}/{{$regimentos[0]->file_path}}"></iframe>
 	</div>
-<?php } ?>
+	<?php if (sizeof($regimentos) > 0) { ?>
+		<div class="embed-responsive embed-responsive-16by9">
+			<iframe class="embed-responsive-item" src="{{asset('storage')}}/{{$regimentos[0]->file_path}}"></iframe>
+		</div>
+	<?php } ?>
 </div>
 @endsection

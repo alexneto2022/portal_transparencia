@@ -19,7 +19,7 @@
 	@endif
 	<div class="d-flex justify-content-between">
 		<div class="p-2">
-			<a href="{{route('transparenciaOrganizacional', $unidade->id)}}" id="Voltar" name="Voltar" type="button" class="btn btn-warning btn-sm" style="color: #FFFFFF;"> Voltar<i class="fas fa-undo-alt"></i> </a>
+			<a href="{{route('trasparenciaOrganizacional', $unidade->id)}}" id="Voltar" name="Voltar" type="button" class="btn btn-warning btn-sm" style="color: #FFFFFF;"> Voltar<i class="fas fa-undo-alt"></i> </a>
 		</div>
 		<div class="p-2">
 			<a href="{{route('organizacionalNovo', $unidade->id)}}" class="btn btn-dark btn-sm" style="color: #FFFFFF;"> Novo <i class="fas fa-check"></i> </a>

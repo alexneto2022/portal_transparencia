@@ -45,8 +45,6 @@ class ContratacaoController extends Controller
 
 	public function contratacaoCadastro($id, Request $request)
 	{
-		$idspresta = array();
-		$idscontratos = array();
 		$validacao = permissaoUsersController::Permissao($id);
 		$unidades = $unidadesMenu = $this->unidade->all();
 		$unidade = $this->unidade->find($id);
@@ -58,12 +56,12 @@ class ContratacaoController extends Controller
 				'contratos.*',
 				'prestadors.prestador as nome',
 				'prestadors.*',
-				'contratos.inativa as inativa',
+				'contratos.inativa as inativa'
 			)
 			->where('contratos.unidade_id', $id)
 			->orderBy('nome', 'ASC')
 			->get();
-		$aditivos = Aditivo::where('unidade_id', $id)->orderBy('vinculado', 'ASC')->get();
+		$aditivos = Aditivo::where('unidade_id', $id)->orderBy('id', 'ASC')->orderBy('vinculado','ASC')->get();
 		$lastUpdated = $contratos->max('updated_at');
 		$processos = Processos::where('unidade_id', $id)->get();
 		$processo_arquivos = ProcessoArquivos::where('unidade_id', $id)->get();
@@ -656,12 +654,17 @@ class ContratacaoController extends Controller
 				->withErrors($validator)
 				->withInput(session()->flashInput($request->input()));
 		}
-		$i = $input['i'];
-		for ($a = 1; $a <= $i; $a++) {
-			$vinculado     = $input['cont_' . $a];
-			$id			   = $input['id_' . $a];
-			DB::update(DB::RAW("update aditivos set vinculado = '$vinculado' where id = " . $id));
+		if(isset($input['i'])){
+    		$i = $input['i'];
+    		for ($a = 1; $a <= $i; $a++) {
+    		    if(isset($input['cont_' . $a])){
+        			$vinculado     = $input['cont_' . $a];
+        			$id			   = $input['id_' . $a];
+        			DB::update(DB::RAW("update aditivos set vinculado = '$vinculado' where id = " . $id));
+    		    }
+    	    }
 		}
+	    
 		$input['yellow_alert'] = 90;
 		$input['red_alert']    = 60;
 		if ($input['valor'] < 0) {
@@ -674,7 +677,9 @@ class ContratacaoController extends Controller
 			'objeto' 	=> 'required|max:255',
 			'valor' 	=> 'required'
 		]);
+		
 		if ($validator->fails()) {
+		    
 			return view('transparencia/contratacao/contratacao_alterar', compact('unidades', 'unidade', 'unidadesMenu', 'contratos', 'prestadores'))
 				->withErrors()
 				->withInput(session()->flashInput($request->input()));
@@ -685,6 +690,7 @@ class ContratacaoController extends Controller
 					->withErrors($validator)
 					->withInput(session()->flashInput($request->input()));
 			} else {
+			    
 				if ($extensao == 'pdf') {
 					$input['ativa'] = 1;
 					$qtdUnidades = sizeof($unidades);
@@ -706,6 +712,7 @@ class ContratacaoController extends Controller
 							$lastUpdated = $log->max('updated_at');
 						}
 					}
+					
 					$unidades = $unidadesMenu = $this->unidade->all();
 					$unidade = $this->unidade->find($id_unidade);
 					$unidadesMenu = $this->unidade->all();
@@ -741,6 +748,7 @@ class ContratacaoController extends Controller
 						->where('contratos.prestador_id', '=', $id_prestador)
 						->where('aditivos.inativa', '=', '0')
 						->get();
+						
 					$validator = 'Dados alterados com sucesso!';
 					return  redirect()->route('alterarContratos', [$id_unidade, $id_prestador, $id_contrato])
 						->withErrors($validator)

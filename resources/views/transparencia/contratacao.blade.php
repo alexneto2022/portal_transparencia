@@ -64,11 +64,13 @@
 							@foreach ($permissao_users as $permissao)
 							@if(($permissao->permissao_id == 10) && ($permissao->user_id == Auth::user()->id))
 							@if ($permissao->unidade_id == $unidade->id)
-							<a class="btn btn-info btn-sm" style="color: #FFFFFF;" href="{{route('cadastroCotacoes', $unidade->id)}}"> Gestão <i class="fas fa-edit"></i></a>
+							<a class="btn btn-info btn-sm" style="color: #FFFFFF;" href="{{route('cadastroCotacoes', $unidade->id)}}"> Alterar <i class="fas fa-edit"></i></a>
 							@endif
 							@endif
 							@endforeach
 							@endif
+							
+
 						</h2>
 					</div>
 
@@ -265,7 +267,17 @@
 					@foreach ($permissao_users as $permissao)
 					@if(($permissao->permissao_id == 11) && ($permissao->user_id == Auth::user()->id))
 					@if ($permissao->unidade_id == $unidade->id)
-					<a class="btn btn-info btn-sm" style="color:black " href="{{route('contratacaoCadastro', $unidade->id)}}"> <b>Alterar</b> <i class="fas fa-edit"></i></a>
+					<a class="btn btn-info btn-sm" style="color: #FFFFFF;" href="{{route('contratacaoCadastro', $unidade->id)}}"> Alterar <i class="fas fa-edit"></i></a>
+					@endif
+					@endif
+					@endforeach
+					@endif
+					
+					@if(Auth::check())
+					@foreach ($permissao_users as $permissao)
+					@if(($permissao->permissao_id == 25) && ($permissao->user_id == Auth::user()->id))
+					@if ($permissao->unidade_id == $unidade->id)
+					<a class="btn btn-success btn-sm" style="color: white;" href="{{route('paginaContratacaoServicos',$unidade->id)}}"> Processos <i class="bi bi-megaphone"></i></a>
 					@endif
 					@endif
 					@endforeach
@@ -304,6 +316,7 @@
 											<tbody>
 												@foreach ($contratos as $contrato)
 												@if ($contrato->tipo_contrato === 'OBRAS' && $contrato->tipo_pessoa === 'PESSOA FÍSICA')
+												@if ($contrato->inativa == 0)
 												<tr>
 													<td class="text-truncate" style="max-width: 100px;" title="{{$contrato->cnpj_cpf}}">{{$contrato->cnpj_cpf}}</td>
 													<td class="text-truncate" style="max-width: 100px;" title="{{$contrato->prestador}}">{{$contrato->prestador}}</td>
@@ -351,6 +364,7 @@
 														</div>
 													</td>
 												</tr>
+												@endif
 												@endif
 												@endforeach
 											</tbody>
@@ -530,6 +544,7 @@
 											<tbody>
 												@foreach ($contratos as $contrato)
 												@if ($contrato->tipo_contrato == 'SERVIÇOS' && $contrato->tipo_pessoa == 'PESSOA JURÍDICA')
+												
 												<tr>
 													<td class="text-truncate" style="max-width: 100px;" title="{{$contrato->cnpj_cpf}}">{{$contrato->cnpj_cpf}}</td>
 													<td class="text-truncate" style="max-width: 100px;" title="{{$contrato->prestador}}">{{$contrato->prestador}}</td>

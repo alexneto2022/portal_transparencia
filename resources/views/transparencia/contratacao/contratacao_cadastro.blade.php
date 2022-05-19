@@ -325,7 +325,7 @@
 														<th scope="col">CNPJ</th>
 														<th scope="col">Empresa</th>
 														<th scope="col">Serviço</th>
-														
+														<th scope="col">Prazo</th>
 														<th scope="col">Opções</th>
 														<th scope="col">Alterar</th>
 														<th scope="col">Gestor</th>
@@ -340,7 +340,14 @@
 														<td class="text-truncate" style="max-width: 100px;" title="{{$contrato->cnpj_cpf}}">{{$contrato->cnpj_cpf}}</td>
 														<td class="text-truncate" style="max-width: 100px;" title="{{$contrato->prestador}}">{{$contrato->prestador}}</td>
 														<td class="text-truncate" style="max-width: 100px;" title="{{$contrato->objeto}}">{{$contrato->objeto}}</td>
-
+														<td>@if($contrato->fim == NULL)
+															'Tempo Indeterminado'
+															@elseif($contrato->renovacao_automatica == 0)
+															{{ date('d-m-Y',(strtotime($contrato->fim))) }}
+															@elseif($contrato->renovacao_automatica == 1)
+															'Renovação Automática'
+															@endif
+														</td>
 														<td>
 															<a class="badge badge-pill badge-primary dropdown-toggle" type="button" href="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 																Visualizar

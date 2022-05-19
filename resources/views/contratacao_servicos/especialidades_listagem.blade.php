@@ -40,11 +40,11 @@
                         <form method="POST" action="{{route('pesquisarEspecialidade',$id_und)}}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="input-group mb-3">
-                                <input name="nomePesq" id="nomePesq" class="flex-fill" style="font-size:16px; " placeholder="Digite o nome"></input>
-                                <button type="submit" style="font-size:18px; margin-left:10px;float:left; font-family:arial;" class="btn btn-primary" name="Pesquisar">Pesquisar</button>
+                                <input name="nomePesq" id="nomePesq" class="flex-fill" style="font-size:13px; " placeholder="Digite o nome"></input>
+                                <button type="submit" style="font-size:13px; margin-left:10px;float:left; font-family:arial;" class="btn btn-primary" name="Pesquisar">Pesquisar</button>
                         </form>
-                        <a href="{{route('novaEspecialidade',$id_und)}}" class="btn btn-success" style="font-size:16px; margin-left:10px; font-family:arial">Nova Especialidade</a>
-                        <a href="{{route('paginaContratacaoServicos',$id_und)}}" class="btn btn-warning" style="font-size:16px; margin-left:10px;font-family:arial">voltar</a>
+                        <a href="{{route('novaEspecialidade',$id_und)}}" class="btn btn-success" style="font-size:13px; margin-left:10px; font-family:arial">Nova Especialidade</a>
+                        <a href="{{route('paginaContratacaoServicos',$id_und)}}" class="btn btn-warning" style="font-size:13px;color:white; margin-left:10px;font-family:arial">voltar</a>
                     </div>
                 </div>
                 <table>
@@ -53,16 +53,16 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th>Nome</th>
-                                    <th>Alterar</th>
-                                    <th>Excluir</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($Especialidades as $especialidade)
                                 <tr>
                                     <th class="text-truncate" style="font-size:16px;max-width:100px">{{$especialidade->nome}}</th>
-                                    <th style="font-size:18px;max-width:5px;"><a href="{{route('pagAlteraEspeciali',[$especialidade->id,$id_und])}}"><button class="btn btn-dark"> Alterar</button></a></th>
-                                    <th style="font-size:18px;max-width:10px;"><a href="{{route('pagExcluirEspeciali',[$especialidade->id, $id_und])}}"><button class="btn btn-danger"> Excluir</button></a></th>
+                                    <th style="font-size:18px;max-width:5px;"><a href="{{route('pagAlteraEspeciali',[$especialidade->id,$id_und])}}"><button class="btn btn-info"><i class="bi bi-pencil-square"></button></a></th>
+                                    <th style="font-size:18px;max-width:10px;"><a href="{{route('pagExcluirEspeciali',[$especialidade->id, $id_und])}}"><button class="btn btn-danger"><i class="bi bi-trash3"></button></a></th>
                                 </tr>
                                 @endforeach
                             </tbody>

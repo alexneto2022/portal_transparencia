@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="m-2">
                                         <label style="font-family:Arial black, Helvetica, sans-serif;">Data prazo final:</label>
-                                        <input type="date" id=prazoFinal name="prazoFinal" rows="4" cols="50" value="{{$CS->prazofinal}}" <?php if ($CS->tipoPrazo == 0) {
+                                        <input type="date" id=prazoFinal name="prazoFinal" rows="4" cols="50" value="{{$CS->prazoFinal}}" <?php if ($CS->tipoPrazo == 0) {
                                                                                                                                                 echo "disabled";
                                                                                                                                             } ?>></input>
                                     </div>
@@ -147,7 +147,7 @@
                 checkboxes[i].checked = source.checked;
             }
         }
-        // Função desabilita data final de processo
+
         function desabilitarTipos(valor) {
             var a = document.getElementById('tipoPrazo').checked;
             if (a == true) {

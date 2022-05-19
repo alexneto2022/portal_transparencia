@@ -14,7 +14,6 @@
             width: 300px;
         }
         </style>
-
     </head>
 
 @section('content')
@@ -51,14 +50,12 @@
 			            
             @foreach($unidades as $unidade)
             @if(isset($unidade->cnes) || $unidade->cnes !== null)
-            @if($unidade->id != 9)
             <div class="card border-0 text-white" >
                 <img id="img-unity" src="{{asset('img')}}/{{$unidade->path_img}}" class="card-img" alt="...">
                 <div class="card-body text-center">
                     <a href="{{route('trasparenciaHome', $unidade->id)}}"  class="btn btn-outline-success">Saber mais +</a>
                 </div>
             </div>
-            @endif
             @endif
             @endforeach
 
@@ -94,7 +91,6 @@
         <div class="row ">
             @foreach($unidades as $unidade)
             @if(!isset($unidade->cnes) || $unidade->cnes === null)
-            @if($unidade->id != 9)
             <div class="col-sm-4">
                 <div id="img-body" class="sborder-0 text-white text-center">
                     <img id="img-unity" src="{{asset('img')}}/{{$unidade->path_img}}" class="rounded-sm" alt="...">
@@ -104,7 +100,6 @@
                     </div>
                 </div>
             </div>  
-            @endif
             @endif
             @endforeach
         </div>

@@ -22,7 +22,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="card-header">
                             <div class="input-group mb-3">
-                                <a href="{{route('paginaEspecialidade',$id_und)}}" class="btn btn-warning" style="font-size:16px; margin-left:10px;font-family:arial">voltar</a>
+                                <a href="{{route('paginaEspecialidade',$id_und)}}" class="btn btn-warning" style="font-size:13px;color:white; margin-left:10px;font-family:arial">voltar</a>
                             </div>
                         </div>
                         <div style="margin-top:10px;margin-left:15px;margin-right:15px;" class="shadow p-3 mb-5 bg-white rounded">
@@ -34,7 +34,7 @@
                             </div>
                     </form>
                     <div class="input-group mb-3">
-                        <a href="{{route('excluirEspecialidade',[$especialidade->id,$id_und])}}" type="submit" class="btn btn-danger" style="font-size:15px; margin-top:10px" value="Excluir" id="Excluir" name="Excluir">Excluir</a>
+                        <a href="{{route('excluirEspecialidade',[$especialidade->id,$id_und])}}" type="submit" class="btn btn-danger" style="font-size:13px;color:white margin-top:10px" value="Excluir" id="Excluir" name="Excluir">Excluir</a>
                     </div>
                 </div>
             </div>

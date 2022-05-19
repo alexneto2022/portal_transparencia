@@ -18,7 +18,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/rp_cards.css') }}" rel="stylesheet">
     
 </head>
 <body>
@@ -36,14 +35,11 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
 
-                    <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
                         @guest
                             <!--li class="nav-item">
                                 <a class="nav-link" href="{{ route('telaLogin') }}">{{ __('Logar') }}</a>
@@ -57,7 +53,9 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     
                                     <a class="dropdown-item" href="{{ route('resetarSenha') }}">{{ __('  Trocar Senha') }}</a>
-                                    
+                                    @if(Auth::user()->funcao == 0)
+                                    <a class="dropdown-item" href="{{ route('cadastroUsuarios') }}">{{ __('  Cadastrar Usuário') }}</a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

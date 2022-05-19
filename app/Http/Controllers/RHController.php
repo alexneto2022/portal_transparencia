@@ -462,6 +462,8 @@ class RHController extends Controller
 			$despesas = DB::table('desp_com_pessoal_hss')->where('mes',$mes)->where('ano',$ano)->where('tipo',$tipo)->get();	
 		}else if($id == 8){
 			$despesas = DB::table('desp_com_pessoal_hpr')->where('mes',$mes)->where('ano',$ano)->where('tipo',$tipo)->get();	
+		}else if($id == 9){
+		    $despesas = DB::table('desp_com_pessoal_igarassu')->where('mes',$mes)->where('ano', $ano)->where('tipo', $tipo)->get();
 		}
 		if($validacao == 'ok') {
 			return view('transparencia/rh/rh_despesas_exibe	', compact('unidade','despesas','unidadesMenu','ano','mes','tipo'));
@@ -493,6 +495,8 @@ class RHController extends Controller
 			$despesas = DB::table('desp_com_pessoal_hss')->where('mes',$mes)->where('ano', $ano)->where('tipo', $tipo)->get();	
 		}else if($id == 8){
 			$despesas = DB::table('desp_com_pessoal_hpr')->where('mes',$mes)->where('ano', $ano)->where('tipo', $tipo)->get();	
+		}else if($id == 9){
+		    $despesas = DB::table('desp_com_pessoal_igarassu')->where('mes',$mes)->where('ano', $ano)->where('tipo', $tipo)->get();
 		}
 		if($validacao == 'ok') {
 			return view('transparencia/rh/rh_despesas_alterar', compact('unidade','unidades','unidadesMenu','despesas','ano','mes','tipo')); 
@@ -524,6 +528,8 @@ class RHController extends Controller
 			$despesas = DB::table('desp_com_pessoal_hss')->where('mes',$mes)->where('ano', $ano)->where('tipo', $tipo)->get();	
 		}else if($id == 8){
 			$despesas = DB::table('desp_com_pessoal_hpr')->where('mes',$mes)->where('ano', $ano)->where('tipo', $tipo)->get();	
+		}else if($id == 9){
+		    $despesas = DB::table('desp_com_pessoal_igarassu')->where('mes',$mes)->where('ano', $ano)->where('tipo', $tipo)->get();
 		}
 		if($validacao == 'ok') {
 			return view('transparencia/rh/rh_despesas_excluir', compact('unidade','unidades','unidadesMenu','despesas','ano','mes','tipo')); 
@@ -565,6 +571,9 @@ class RHController extends Controller
 		}else if($id == 8){
 			$despesas = DB::table('desp_com_pessoal_hpr')->where('mes',$mes)->where('ano', $ano)->where('tipo', $tipo)->get();	
 			$nome = 'desp_com_pessoal_hpr';
+		}else if($id == 9){
+		    $despesas = DB::table('desp_com_pessoal_igarassu')->where('mes',$mes)->where('ano', $ano)->where('tipo', $tipo)->get();	
+			$nome = 'desp_com_pessoal_igarassu';
 		}
 		for($a = 1; $a <= 10; $a++){
 			$idl   = $input['id_'.$a];
@@ -618,6 +627,8 @@ class RHController extends Controller
 			$despesas = 'desp_com_pessoal_hss';	
 		}else if($id == 8){
 			$despesas = 'desp_com_pessoal_hpr';	
+		}else if($id == 9){
+		    $despesas = 'desp_com_pessoal_igarassu';
 		}
 		for($i = 1; $i <= 10; $i++)
 		{

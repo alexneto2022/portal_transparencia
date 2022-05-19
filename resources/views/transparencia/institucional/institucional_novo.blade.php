@@ -37,13 +37,17 @@
 			</div>
 		</div>
 		<div class="form-row">
-			<div class="form-group col-md-6">
+			<div class="form-group col-md-5">
 				<label><strong>CNPJ: </strong></label>
 				<input type="text" maxlength="18" class="form-control" name="cnpj" id="cnpj" value="" required />
 			</div>
-			<div class="form-group col-md-6">
+			<div class="form-group col-md-5">
 				<label><strong>Nome Unidade: </strong></label>
 				<input type="text" class="form-control" name="name" id="name" value="" required />
+			</div>
+            <div class="form-group col-md-2">
+				<label><strong>Sigla: </strong></label>
+				<input type="text" class="form-control" name="sigla" id="sigla" value="" required />
 			</div>
 		</div>
 		@if(isset($unidade->further_info) || $unidade->further_info !== null)
@@ -149,7 +153,7 @@
 
 		<div class="form-row">
 			<div class="form-group text-center col-md-6">
-				<a href="{{route('transparenciaHome', $unidade->id)}}" id="Voltar" name="Voltar" type="button" class="btn btn-warning btn-sm" style="margin-top: 10px; color: #FFFFFF;"> Voltar <i class="fas fa-undo-alt"></i> </a>
+				<a href="{{route('trasparenciaHome', $unidade->id)}}" id="Voltar" name="Voltar" type="button" class="btn btn-warning btn-sm" style="margin-top: 10px; color: #FFFFFF;"> Voltar <i class="fas fa-undo-alt"></i> </a>
 			</div>
 			<div class="form-group text-center col-md-6">
 				<input type="submit" class="btn btn-success btn-sm" style="margin-top: 10px;" value="Salvar" id="Salvar" name="Salvar" />

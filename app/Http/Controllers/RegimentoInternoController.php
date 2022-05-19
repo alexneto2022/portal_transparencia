@@ -18,12 +18,12 @@ class RegimentoInternoController extends Controller
 		$this->logger_users     = $logger_users;
 		$this->regimentoInterno = $regimentoInterno;
 	}
-
-	public function index()
-	{
-		$unidades = $this->unidade->all();
+	
+    public function index()
+    {
+        $unidades = $this->unidade->all();
 		return view('transparencia.regimento_interno', compact('unidades'));
-	}
+    }
 
 	public function regimentoCadastro($id, Request $request)
 	{
@@ -32,32 +32,32 @@ class RegimentoInternoController extends Controller
 		$unidades = $unidadesMenu;
 		$unidade = $this->unidade->find($id);
 		$regimentos = RegimentoInterno::where('unidade_id', $id)->get();
-		if ($validacao == 'ok') {
-			return view('transparencia/organizacional/regimento_cadastro', compact('unidades', 'unidadesMenu', 'unidade', 'regimentos'));
+		if($validacao == 'ok') {
+			return view('transparencia/organizacional/regimento_cadastro', compact('unidades','unidadesMenu','unidade','regimentos'));
 		} else {
-			$validator = 'VocÃª nÃ£o tem PermissÃ£o!!';
-			return view('home', compact('unidades', 'unidade', 'unidadesMenu'))
+			$validator = 'Voc¨º n0Š0o tem Permiss0Š0o!!';		
+			return view('home', compact('unidades','unidade','unidadesMenu'))
 				->withErrors($validator)
-				->withInput(session()->flashInput($request->input()));
+				->withInput(session()->flashInput($request->input())); 		
 		}
 	}
-
+	
 	public function regimentoNovo($id, Request $request)
 	{
 		$validacao = permissaoUsersController::Permissao($id);
 		$unidadesMenu = $this->unidade->all();
 		$unidades = $unidadesMenu;
 		$unidade = $this->unidade->find($id);
-		if ($validacao == 'ok') {
-			return view('transparencia/organizacional/regimento_novo', compact('unidades', 'unidadesMenu', 'unidade'));
+		if($validacao == 'ok') {
+			return view('transparencia/organizacional/regimento_novo', compact('unidades','unidadesMenu','unidade'));
 		} else {
-			$validator = 'Vocï¿½ï¿½ nï¿½0ï¿½0o tem Permissï¿½0ï¿½0o!!';
-			return view('home', compact('unidades', 'unidade', 'unidadesMenu'))
+			$validator = 'Voc¨º n0Š0o tem Permiss0Š0o!!';		
+			return view('home', compact('unidades','unidade','unidadesMenu'))
 				->withErrors($validator)
-				->withInput(session()->flashInput($request->input()));
+				->withInput(session()->flashInput($request->input())); 		
 		}
 	}
-
+	
 	public function regimentoAltera($id, $id_escolha, Request $request)
 	{
 		$validacao = permissaoUsersController::Permissao($id);
@@ -66,30 +66,29 @@ class RegimentoInternoController extends Controller
 		$unidade  = $this->unidade->find($id);
 		$regimentos = RegimentoInterno::where('unidade_id', $id)->where('id', $id_escolha)->get();
 		if ($validacao == 'ok') {
-			return view('transparencia/organizacional/regimento_Alterar', compact('unidades', 'unidadesMenu', 'unidade', 'regimentos'));
+			return view('transparencia/organizacional/regimento_alterar', compact('unidades', 'unidadesMenu', 'unidade', 'regimentos'));
 		} else {
-			$validator = 'VocÃª nÃ£o tem permissÃ£o !!';
+			$validator = 'Voc¨º n0Š0o tem permiss0Š0o !!';
 			return view('home', compact('unidades', 'unidade', 'unidadesMenu'))
 				->withErrors($validator)
 				->withInput(session()->flashInput($request->input()));
 		}
 	}
-
-
+	
 	public function regimentoExcluir($id, $id_escolha, Request $request)
 	{
 		$validacao = permissaoUsersController::Permissao($id);
 		$unidadesMenu = $this->unidade->all();
 		$unidades = $unidadesMenu;
 		$unidade  = $this->unidade->find($id);
-		$regimentos = RegimentoInterno::where('unidade_id', $id)->where('id', $id_escolha)->get();
-		if ($validacao == 'ok') {
-			return view('transparencia/organizacional/regimento_excluir', compact('unidades', 'unidadesMenu', 'unidade', 'regimentos'));
+		$regimentos = RegimentoInterno::where('unidade_id', $id)->where('id',$id_escolha)->get();
+		if($validacao == 'ok') {
+			return view('transparencia/organizacional/regimento_excluir', compact('unidades','unidadesMenu','unidade','regimentos'));
 		} else {
-			$validator = 'VocÃª nÃ£o tem permissÃ£o !!';
-			return view('home', compact('unidades', 'unidade', 'unidadesMenu'))
+			$validator = 'Voc¨º n0Š0o tem Permiss0Š0o!!';		
+			return view('home', compact('unidades','unidade','unidadesMenu'))
 				->withErrors($validator)
-				->withInput(session()->flashInput($request->input()));
+				->withInput(session()->flashInput($request->input())); 		
 		}
 	}
 
@@ -129,13 +128,14 @@ class RegimentoInternoController extends Controller
 						->with('unidades', 'unidade', 'unidadesMenu', 'regimentos', 'lastUpdated');
 				}
 			} else {
-				$validator = 'SÃ³ sÃ£o permitidos arquivos do tipo: PDF!';
+				$validator = 'S¨® s0Š0o permitidos arquivos do tipo: PDF!';
 				return view('transparencia/organizacional/regimento_novo', compact('unidades', 'unidade', 'unidadesMenu'))
 					->withErrors($validator)
 					->withInput(session()->flashInput($request->input()));
 			}
 		}
 	}
+	
 	public function update($id, $id_escolha, Request $request)
 	{
 		$unidadesMenu = $this->unidade->all();
@@ -147,7 +147,7 @@ class RegimentoInternoController extends Controller
 			$nome = $_FILES['file_path']['name'];
 			$extensao = pathinfo($nome, PATHINFO_EXTENSION);
 			if ($extensao !== 'pdf') {
-				$validator = 'SÃ³ sÃ£o permitidos arquivos do tipo: PDF!';
+				$validator = 'S¨® s0Š0o permitidos arquivos do tipo: PDF!';
 				return view('transparencia/organizacional/regimento_Alterar', compact('unidades', 'unidade', 'unidadesMenu', 'regimentos'))
 					->withErrors($validator)
 					->withInput(session()->flashInput($request->input()));
@@ -195,22 +195,23 @@ class RegimentoInternoController extends Controller
 			}
 		}
 	}
-	public function destroy($id, $id_escolha, Request $request)
-	{
+
+    public function destroy($id, $id_escolha, Request $request)
+    {
 		$unidadesMenu = $this->unidade->all();
 		$unidades = $unidadesMenu;
 		$unidade = $this->unidade->find($id);
 		$input = $request->all();
 		$nome = $input['file_path'];
-		$pasta = 'public/' . $nome;
+		$pasta = 'public/'.$nome; 
 		Storage::delete($pasta);
-		RegimentoInterno::find($id_escolha)->delete();
+        RegimentoInterno::find($id_escolha)->delete();
 		$log = LoggerUsers::create($input);
 		$lastUpdated = $log->max('updated_at');
 		$regimentos = RegimentoInterno::where('unidade_id', $id)->get();
 		$validator = 'Regismento Interno Exclupido com sucesso!';
 		return  redirect()->route('regimentoCadastro', [$id])
 			->withErrors($validator)
-			->with('unidades', 'unidade', 'unidadesMenu', 'regimentos', 'lastUpdated');
-	}
+			->with('unidades', 'unidade', 'unidadesMenu', 'regimentos', 'lastUpdated');			
+    }
 }

@@ -1,26 +1,22 @@
 @extends('navbar.default-navbar')
-
-
-
 @section('content')
-
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="container text-center" style="color: #28a745">Você está em: <strong>{{$unidade->name}}</strong></div>
 <div class="container-fluid">
-	<div class="row" style="margin-top: 25px;">
-		<div class="col-md-12 text-center">
-			<h5 style="font-size: 18px;">EXCLUIR INSTITUCIONAL:</h5>
-		</div>
-	</div>
-	@if ($errors->any())
-	<div class="alert alert-danger">
-		<ul>
-			@foreach ($errors->all() as $error)
-			<li>{{ $error }}</li>
-			@endforeach
-		</ul>
-	</div>
-	@endif
+    <div class="row" style="margin-top: 25px;">
+        <div class="col-md-12 text-center">
+            <h5 style="font-size: 18px;">EXCLUIR INSTITUCIONAL:</h5>
+        </div> 
+    </div><br/>
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+      </div>
+	@endif 
 	<div class="d-flex flex-column">
 		<div>
 			<a class="form-control text-center bg-success text-decoration-none text-white bg-success" type="button" data-toggle="collapse" data-target="#PESSOAL" aria-expanded="true" aria-controls="PESSOAL">
@@ -29,8 +25,8 @@
 		</div>
 	</div>
 	<form action="{{\Request::route('destroy', $unidade->id)}}" method="post">
-		<input type="hidden" name="_token" value="{{ csrf_token() }}">
-		<div class="form-row mt-2">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+<div class="form-row mt-2">
 			<div class="form-group col-md-12">
 				<label><strong>Perfil:</strong></label>
 				<input type="text" class="form-control" name="owner" id="owner" readonly="true" value="Sociedade Pernambucana de Combate ao Câncer" value="<?php echo $unidade->owner; ?>" disabled />
@@ -117,11 +113,11 @@
 		<div class="form-row">
 			<div class="form-group col-md-6">
 				<label><strong>Imagem: </strong></label>
-				<input type="text" readonly="true" class="form-control" name="path_img" id="path_img" style="width:300px" value="<?php echo $unidade->path_img; ?>" disabled />
+				<input type="text" readonly="true" class="form-control" name="path_img" id="path_img"  value="<?php echo $unidade->path_img; ?>" disabled />
 			</div>
 			<div class="form-group col-md-6">
 				<label><strong>Ícone: </strong></label>
-				<input type="text" readonly="true" class="form-control" name="icon_img" id="icon_img" style="width:300px" value="<?php echo $unidade->icon_img; ?>" disabled />
+				<input type="text" readonly="true" class="form-control" name="icon_img" id="icon_img"  value="<?php echo $unidade->icon_img; ?>" disabled />
 
 			</div>
 		</div>
@@ -167,10 +163,14 @@
 			</tr>
 		</table>
 
-	</form>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 </div>
 <script>
-	window.onload = function() {
+	window.onload = function(){
 		$('#telefone').mask('9999-9999');
 	};
 </script>

@@ -142,7 +142,6 @@
         <div class="row ">
             @foreach($unidades as $unidade)
             @if(!isset($unidade->cnes) || $unidade->cnes === null)
-            @if($unidade->id != 9)
             <div class="col-sm-4">
                 <div id="img-body" class="sborder-0 text-white text-center">
                     <img id="img-unity" src="{{asset('img')}}/{{$unidade->path_img}}" class="rounded-sm" alt="...">
@@ -152,7 +151,6 @@
                     </div>
                 </div>
             </div>  
-            @endif
             @endif
             @endforeach
         </div>

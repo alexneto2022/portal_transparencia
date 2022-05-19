@@ -46,7 +46,9 @@ class DespesasPessoaisController extends Controller
 		   $nome = 'hss';
 	    } else if ($id_unidade == 8) {
 		   $nome = 'hpr';
-	    }	
+	    } else if ($id_unidade == 9) {
+	       $nome = 'igarassu'; 
+	    }
 		$qtd = 0; 
 		if($qtd > 30) {
 			$validator = 'Esta Despesa Pessoal já foi cadastrada!!';

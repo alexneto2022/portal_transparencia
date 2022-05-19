@@ -96,6 +96,7 @@ class RelatorioFinanceiroController extends Controller
 				->withErrors($validator)
 				->withInput(session()->flashInput($request->input()));
 		} else {
+		    $extensao = strtolower($extensao);
 			if($extensao === 'pdf') {
 				$validator = Validator::make($request->all(), [
 					'title' => 'required|max:255',

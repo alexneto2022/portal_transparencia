@@ -177,7 +177,7 @@
 					<div class="card-header d-flex justify-content-between" id="headingOne">
 						<h5 class="mb-0">
 							<a class="btn btn-link text-dark no-underline" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-								SUPERINTENDENTES<i class="far fa-list-alt"></i>
+								SUPERINTENDENTES <i class="far fa-list-alt"></i>
 							</a>
 						</h5>
 						<h5 class="mb-0">

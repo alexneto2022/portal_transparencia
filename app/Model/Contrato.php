@@ -16,7 +16,6 @@ class Contrato extends Model
 		'inicio',
 		'fim',
 		'renovacao_automatica',
-		'dtfimrenov',
 		'aviso_venc90',
 		'aviso_venc60',
 		'yellow_alert',

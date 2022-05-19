@@ -14,7 +14,7 @@ class Aditivo extends Model
         'inicio',
         'fim',
         'aviso_venc90',
-        'aviso_venc60',
+		'aviso_venc60',
         'yellow_alert',
         'red_alert',
         'file_path',

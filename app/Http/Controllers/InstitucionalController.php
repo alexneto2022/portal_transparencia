@@ -94,7 +94,7 @@ class InstitucionalController extends Controller
 					$nomeI = $_FILES['icon_img']['name'];
 					$input['icon_img'] = $nomeI;
 					$request->file('path_img')->move('../public/img', $nome);	
-					$request->file('icon_img')->move('../public/img', $nomeI);		
+					$request->file('icon_img')->move('../public/img', $nomeI);	
 					$unidade = Unidade::create($input);
 					$log = LoggerUsers::create($input);	
 					$lastUpdated = $log->max('updated_at');	

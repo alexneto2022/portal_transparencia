@@ -35,18 +35,18 @@
                         <form method="POST" action="{{route('pesquisarContratacao',$id_und)}}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="container">
-                                <div class="d-flex flex-wrap justify-content-between">
-                                    <div class="p-2 ">
-                                        <a href="{{route('transparenciaContratacao',$id_und)}}" class="btn btn-warning" style="color:white;">Voltar</a>
+                                <div class="d-flex flex-wrap justify-content-center">
+                                    <div class="p-1 ">
+                                        <a href="{{route('transparenciaContratacao',$id_und)}}" class="btn btn-warning" style="font-size:13px;color:white;">Voltar</a>
                                     </div>
-                                    <div class="p-2">
-                                        <a href="{{route('novaContratacaoServicos',$id_und)}}" class="btn btn-success">Novo processo</a>
+                                    <div class="p-1">
+                                        <a href="{{route('novaContratacaoServicos',$id_und)}}" class="btn btn-success" style="font-size:13px;">Novo processo</a>
                                     </div>
-                                    <div class="p-2">
-                                        <a href="{{route('paginaEspecialidade',$id_und)}}" class="btn btn-success">Especialidades</a>
+                                    <div class="p-1">
+                                        <a href="{{route('paginaEspecialidade',$id_und)}}" class="btn btn-success" style="font-size:13px;">Especialidades</a>
                                     </div>
 
-                                    <div class="p-2" id="tipo" style='display:none;'>
+                                    <div class="p-1" id="tipo" style='display:none;'>
                                         <select class="form-control" name="tipocontrato" id="tipocontrato">
                                             <option value="0">Selcione</option>
                                             <option value="1">Obras e reformas</option>
@@ -54,7 +54,7 @@
                                             <option value="3">Aquisições</option>
                                         </select>
                                     </div>
-                                    <div class="p-2" id="st" style='display:none;'>
+                                    <div class="p-1" id="st" style='display:none;'>
                                         <select class="form-control" name="status" id="status">
                                             <option value="0">Selcione o status</option>
                                             <option value="1">Em breve</option>
@@ -64,19 +64,19 @@
                                             <!--option value="5">Cancelado</option-->
                                         </select>
                                     </div>
-                                    <div class="p-2" id="data" style='display:none;'>
-                                        <label>Data Inicial:</label>
-                                        <input type="date" name="dtini" id="dtini" class="form-control">
+                                    <div class="p-1" id="data" style='display:none;'>
+                                        <label style="font-size:13px;">Data Inicial:</label>
+                                        <input type="date" name="dtini" id="dtini" style="font-size:13px;" class="form-control">
                                     </div>
-                                    <div class="p-2" id="data2" style='display:none;'>
-                                        <label>Data Final:</label>
-                                        <input type="date" name="dtfim" id="dtfim" class="form-control">
+                                    <div class="p-1" id="data2" style='display:none;'>
+                                        <label style="font-size:13px;">Data Final:</label>
+                                        <input type="date" name="dtfim" id="dtfim" style="font-size:13px;" class="form-control">
                                     </div>
-                                    <div class="p-2" id="nome" style='display:none;'>
-                                        <input style="width:400px;" type="text" name="titulo" id="titulo" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                    <div class="p-1" id="nome" style='display:none;'>
+                                        <input style="width:200px;" type="text" name="titulo" id="titulo" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Digite o título..">
                                     </div>
-                                    <div class="p-2">
-                                        <select class="form-control" id="filtro" name="filtro">
+                                    <div class="p-1">
+                                        <select style="font-size:13px;" class="form-control" id="filtro" name="filtro">
                                             <option value="selecione">Escolha o filtro</option>
                                             <option value="titulo">titulo</option>
                                             <option value="data">Data</option>
@@ -84,9 +84,18 @@
                                             <option value="status">Status</option>
                                         </select>
                                     </div>
-                                    <div class="p-2">
-                                        <button type="submit" class="btn btn-primary" name="Pesquisar">Pesquisar</button>
+                                    <div class="p-1">
+                                        <button type="submit" class="btn btn-primary" style="font-size:13px;" name="Pesquisar">Pesquisar</button>
                                     </div>
+                                </div>
+                                <div class="d-flex flex-wrap justify-content-center">
+                                    <div class="p-1 form-control">
+                                    <label>Status:</label>
+                                    <button type="button" class="btn btn-info"></button> Em breve
+                                    <button type="button" class="btn btn-success"></button> Em divulgação
+                                    <button type="button" class="btn btn-warning"></button> Prorrogado
+                                    <button type="button" class="btn btn-danger"></button> Finalizado
+                                   </div> 
                                 </div>
                         </form>
                     </div>
@@ -109,11 +118,11 @@
                             <tr>
                                 <td style="width:20px;">
                                     <?php $hoje = date('Y-m-d'); ?>
-                                    @if(($CS->prazoInicial > $hoje && $CS->prazofinal > $hoje)||($CS->prazoInicial > $hoje && $CS->prazofinal == ""))
+                                    @if(($CS->prazoInicial > $hoje && $CS->prazoFinal > $hoje)||($CS->prazoInicial > $hoje && $CS->prazoFinal == ""))
                                     <button type="button" class="btn btn-info"></button>
-                                    @elseif(($CS->prazoInicial <= $hoje && $CS->prazofinal >= $hoje)||($CS->prazoInicial <= $hoje && $CS->prazofinal == "" && $CS->prazoProrroga == "") )
+                                    @elseif(($CS->prazoInicial <= $hoje && $CS->prazoFinal >= $hoje)||($CS->prazoFinal == "" && $CS->prazoProrroga == "") )
                                         <button type="button" class="btn btn-success"></button>
-                                        @elseif($CS->prazoInicial < $hoje && $CS->prazofinal < $hoje && $CS->prazoProrroga == "")
+                                        @elseif($CS->prazoInicial < $hoje && $CS->prazoFinal < $hoje && $CS->prazoProrroga == "")
                                                 <button type="button" class="btn btn-danger"></button>
                                                 @elseif($CS->prazoProrroga >= $hoje)
                                                 <button type="button" class="btn btn-warning"></button>
@@ -139,8 +148,8 @@
                                     <?php echo date('d/m/Y', strtotime($CS->prazoInicial)); ?>
                                 </td>
                                 <td style="font-size:16px;width:30px;">
-                                    @if($CS->prazofinal !== null)
-                                    <?php echo date('d/m/Y', strtotime($CS->prazofinal)); ?>
+                                    @if($CS->prazoFinal !== null)
+                                    <?php echo date('d/m/Y', strtotime($CS->prazoFinal)); ?>
                                     @endif
                                 </td>
                                 <td style="font-size:16px;width:30px;">

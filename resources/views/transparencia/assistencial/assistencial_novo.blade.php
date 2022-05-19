@@ -15,26 +15,6 @@
 	</ul>
 </div>
 @endif
-<style>
-	.wrapper1,
-	.wrapper2 {
-		width: 100%;
-		overflow-x: scroll;
-		overflow-y: hidden;
-	}
-
-	.wrapper1 {
-		height: 20px;
-	}
-
-	.div1 {
-		height: 20px;
-	}
-
-	.div2 {
-		overflow: none;
-	}
-</style>
 <container>
 	<div class="d-flex flex-column">
 		<form action="{{\Request::route('storeAssistencial'), $unidade->id}}" method="post">
@@ -136,8 +116,7 @@
 					<input type="submit" class="btn btn-success btn-sm" style="margin-top: 10px;" value="Adicionar" id="Salvar" name="Salvar" />
 				</div>
 			</div>
-
-			<div class="mt-3" style="max-width:163vh; height:75vh; overflow:auto;">
+            <div class="mt-3" style="max-width:163vh; height:75vh; overflow:auto;">
 				<table class="table table-responsive">
 					<thead class="bg-success">
 						<tr class="text-white">
@@ -191,7 +170,6 @@
 						</tr>
 					</table>
 				</table>
-			</div>
 			</div>
 			<div class="d-flex justify-content-center aling text-center">
 				<div class="p-1">

@@ -57,7 +57,7 @@
 				 <td> Unidade: <strong>Hospital da Mulher do Recife</strong></td>
 				</tr>  
 		        <tr>
-				 <td> Responsável: <strong>Roberta Nayara</strong></td>
+				 <td> Responsável: <strong>Manuelly Santos</strong></td>
 				</tr>
 				<tr>
 				 <td> Email: <strong>ouvidoria@hmr.org.br  </strong></td>

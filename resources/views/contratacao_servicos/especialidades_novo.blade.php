@@ -40,7 +40,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="card-header">
                             <div class="input-group mb-3">
-                                <a href="{{route('paginaEspecialidade',$id_und)}}" class="btn btn-warning" style="font-size:16px; margin-left:10px;background-color:rgb(255, 102, 0);color:cornsilk;font-family:arial">voltar</a>
+                                <a href="{{route('paginaEspecialidade',$id_und)}}" class="btn btn-warning" style="font-size:16px; margin-left:10px;color:white;font-family:arial">voltar</a>
                             </div>
                         </div>
                         <div style="margin-top:10px;margin-left:15px;margin-right:15px;" class="shadow p-3 mb-5 bg-white rounded">
