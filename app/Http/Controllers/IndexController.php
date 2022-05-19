@@ -56,6 +56,7 @@ use App\Model\Aditivo;
 use App\Model\RelatorioFinanceiro;
 use App\Model\Covenio;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Model\Organograma;
 use DB;
 use PDF;
 use Carbon\Carbon;
@@ -118,7 +119,8 @@ class IndexController extends Controller
         $reg = RegimentoInterno::where('unidade_id', $id)->get();
         $qtd = sizeof($reg);
         $permissao_users = PermissaoUsers::where('unidade_id', $id)->get();
-        return view('transparencia.organizacional', compact('unidade', 'unidadesMenu', 'estruturaOrganizacional', 'lastUpdated', 'qtd', 'reg', 'permissao_users'));
+        $arqOrgano = Organograma::where('unidade_id', $id)->get();
+        return view('transparencia.organizacional', compact('unidade', 'unidadesMenu', 'estruturaOrganizacional', 'lastUpdated', 'qtd', 'reg', 'permissao_users','arqOrgano'));
     }
 
     public function transparenciaMembros($id, $escolha)
@@ -194,7 +196,8 @@ class IndexController extends Controller
                 'contratacao_servicos.id as id',
                 'contratacao_servicos.prazoProrroga as prazoProrroga',
                 'unidades.sigla as nomeUnidade',
-                'unidades.path_img as path_img'
+                'unidades.path_img as path_img',
+                'contratacao_servicos.titulo as titulo',
             )
             ->orderBy('unidades.sigla', 'ASC')
             ->get();

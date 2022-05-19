@@ -4,30 +4,27 @@
 <div class="container-fluid">
 	<div class="row" style="margin-bottom: 25px; margin-top: 25px;">
 		<div class="col-md-12 text-center">
-			<h5  style="font-size: 18px;">ORGANOGRAMA</h5>
+			<h5 style="font-size: 18px;">ARQUIVO DO ORGANOGRAMA</h5>
 		</div>
-	</div>	
-	<div class="row"> 
-			<div class="col-md-12">
-				<p align="right"><a href="{{route('organogramaNovo', $unidade->id)}}" class="btn btn-dark btn-sm" style="color: #FFFFFF;"> Novo <i class="fas fa-check"></i> </a></p>
-			</div>
-			<table class="table table-sm ">
-				<thead class="bg-success">
-					<tr>
-						<th scope="col">Título</th>
-						<th scope="col">Arquivo</th>
-						<th scope="col">Excluir</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-					    <td style="fonr-size: 15px;">Organograma do HCP Gestão:</td>
-						<td style="font-size: 15px;"></td>
-						<td style="font-size: 15px;"><a class="btn btn-danger btn-sm" href="{{route('organogramaExcluir', $unidade->id)}}" ><i class="fas fa-times-circle"></i></td> 
-					</tr>
-				</tbody>
-		</table>
 	</div>
+	<div class="d-flex justify-content-between">
+		<div class="p-2">
+			<a href="{{route('transparenciaOrganizacional', $unidade->id)}}" id="Voltar" name="Voltar" type="button" class="btn btn-warning btn-sm" style="color: #FFFFFF;"> Voltar<i class="fas fa-undo-alt"></i> </a>
+		</div>
+		<div class="p-2">
+			<?php if (sizeof($arqOrgano) == 0) { ?>
+				<a href="{{route('organogramaNovo', $unidade->id)}}" class="btn btn-dark btn-sm" style="color: #FFFFFF;"> Novo <i class="fas fa-check"></i> </a>
+			<?php } else { ?>
+				<a href="{{route('organogramaNovo', $unidade->id)}}" class="btn btn-info btn-sm" style="color: #FFFFFF;"> Substituir <i class="fas fa-check"></i> </a>
+				<a class="btn btn-danger btn-sm" href="{{route('organogramaExcluir', $unidade->id)}}"><i class="bi bi-trash3"></i></a>
+			<?php } ?>
+		</div>
+	</div>
+	<?php if (sizeof($arqOrgano) > 0) { ?>
+		<div class="embed-responsive embed-responsive-16by9">
+			<iframe class="embed-responsive-item" src="{{asset('storage')}}/{{$arqOrgano[0]->file_path}}"></iframe>
+		</div>
+	<?php } ?>
 </div>
 
 @endsection

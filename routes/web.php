@@ -154,6 +154,8 @@ Route::middleware(['auth'])->group(function () {
 		//RegimentoInterno
 		Route::get('regimento/{id}', 'RegimentoInternoController@regimentoCadastro')->name('regimentoCadastro');
 		Route::get('regimento/{id}/regimentoNovo', 'RegimentoInternoController@regimentoNovo')->name('regimentoNovo');
+		Route::get('regimento/{id}/regimentoAlterar/{id_escolha}', 'RegimentoInternoController@regimentoAltera')->name('regimentoAltera');
+		Route::post('regimento/{id}/regimentoAlterar/{id_escolha}', 'RegimentoInternoController@update')->name('update');
 		Route::get('regimento/{id}/regimentoExcluir/{id_escolha}', 'RegimentoInternoController@regimentoExcluir')->name('regimentoExcluir');
 		Route::post('regimento/{id}/regimentoExcluir/{id_escolha}', 'RegimentoInternoController@destroy')->name('destroy');
 		Route::get('organograma/{id}', 'OrganizationalController@organograma')->name('organograma');
